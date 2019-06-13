@@ -7,6 +7,7 @@ const { users } = require ('./state')
 
 app.use(bodyParser.json()); 
 
+// send hello world to the DOM
 app.get('/', (req, res) => res.send('hello world'))
 
 app.get('/users', (req, res) => res.json(users))
@@ -16,13 +17,15 @@ app.get('/users/:userId', (req, res) => {
   const found = users.find(u => u._id == req.params.userId)
   return res.json(found)
 })
-
+ 
 // app.put('/users', (req, res) => {
 //   const userEdit = users[0]
 //   userEdit.name = 'Sally'
 //   res.json(users[0])
 // })
 
+
+// find the user and replace the name 
 app.put('/users/:userId', (req, res) => {
   const find = users.findIndex(
     u => u._id == req.params.userId
@@ -32,6 +35,7 @@ app.put('/users/:userId', (req, res) => {
 })
 
 // this just makes the user inactive 
+// it does not delete the user from the array
 app.delete('/users/:userId', (req, res) => {
   const no = users.findIndex(
     u => u._id == req.params.userId
@@ -40,8 +44,10 @@ app.delete('/users/:userId', (req, res) => {
   return res.send('deleted')
 })
 
-// this route will 
-// find and delete the user::::::::::
+
+// the route below will 
+// find and delete the user from the 
+// array:::::::::::::::::::::::::::
 
 // app.delete('/users/:userId', (req, res) => {
 //   const no = users.findIndex(
