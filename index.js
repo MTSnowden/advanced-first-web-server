@@ -11,28 +11,35 @@ app.get('/', (req, res) => res.send('hello world'))
 
 app.get('/users', (req, res) => res.json(users))
 
-app.get('/users/1', (req, res) => res.json(users[0]))
+// app.get('/users/1', (req, res) => res.json(users[0]))
+app.get('/users/:userId', (req, res) => {
+  const found = users.find(u => u._id == req.params.userId)
+  return res.json(found)
+})
 
-// app.post('/users', (req, res) => {
-//   const newUser = {
-//     name: 'Barrett',
-//     occupation: 'Teacher',
-//     age: 32
-//   }
-//   users.push(newUser)
-//   res.json(users[users.length-1])
+// app.put('/users', (req, res) => {
+//   const userEdit = users[0]
+//   userEdit.name = 'Sally'
+//   res.json(users[0])
 // })
 
-app.put('/users', (req, res) => {
-  const userEdit = users[0]
-  userEdit.name = 'Sally'
-  res.json(users[0])
+app.put('/users/:userId', (req, res) => {
+  const find = users.findIndex(
+    u => u._id == req.params.userId
+  );
+ users[find].name = "Oprah";
+  return res.send('updated')
 })
 
-app.delete('/users/1', (req, res) => {
-  users.shift()
-  res.send('deleted')
+
+app.delete('/users/:userId', (req, res) => {
+  const no = users.findIndex(
+    u => u._id == req.params.userId
+  );
+  users.splice(no, 1);
+  return res.send('deleted')
 })
+
 
 app.post('/users', (req, res) => {
   const newUser = req.body
@@ -41,7 +48,6 @@ app.post('/users', (req, res) => {
   console.log(newUser)
   users.push(newUser)
   res.json(newUser)
-
 })
 
 
