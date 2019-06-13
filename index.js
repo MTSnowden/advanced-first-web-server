@@ -31,15 +31,25 @@ app.put('/users/:userId', (req, res) => {
   return res.send('updated')
 })
 
-
+// this just makes the user inactive 
 app.delete('/users/:userId', (req, res) => {
   const no = users.findIndex(
     u => u._id == req.params.userId
   );
-  users.splice(no, 1);
+  users[no].isActive = false;
   return res.send('deleted')
 })
 
+// this route will 
+// find and delete the user::::::::::
+
+// app.delete('/users/:userId', (req, res) => {
+//   const no = users.findIndex(
+//     u => u._id == req.params.userId
+//   );
+//   users.splice(no, 1);
+//   return res.send('deleted')
+// })
 
 app.post('/users', (req, res) => {
   const newUser = req.body
